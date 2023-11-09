@@ -16,4 +16,4 @@ Para abir el programa en Windows es tan simple como hacer doble click sobre el f
 
     python tabla.py
 
-Una vez arrancado se puede reproducir los sonidos almacenados en la carpeta sounds vinculados en el programa a cada botón de la matriz. Tambien se pueden reproducir mediante el atajo de teclado `CTRL+NUM` para <u>**reproducir los sonidos**</u> de la tabla y `ALT+NUM` para <u>**cambiar entre las matrices**</u> almacenadas.
+Una vez arrancado se puede reproducir los sonidos almacenados en la carpeta sounds vinculados en el programa a cada botón de la matriz. Tambien se pueden reproducir mediante el atajo de teclado `CTRL+NUM` para <ins>**reproducir los sonidos**</ins> de la tabla y `ALT+NUM` para <ins>**cambiar entre las matrices**</ins> almacenadas.
