@@ -3,28 +3,20 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QGridLayout
 from PyQt5.QtCore import Qt
 import pygame
 
+from config import Config
+
 class TablaSonidosApp(QWidget):
     def __init__(self):
         super().__init__()
 
+        # Cargo la configuracion
+        self.config = Config("config.json")
+
         # Directorio de sonidos
-        self.sounds_path = "sounds/"
+        self.sounds_path = self.config.sound_path
 
         # Lista de matrices de sonidos
-        self.matrices_sonidos = [
-            [
-                ["11", "01.mp3"],
-                ["12", "02.mp3"],
-                ["13", "03.mp3"],
-                ["14", "04.mp3"],
-                ["15", "05.mp3"],
-                ["16", "06.mp3"],
-                ["17", "07.mp3"],
-                ["18", "08.mp3"],
-                ["19", "09.mp3"]
-            ],
-            # AÑADIR LAS MATRICES QUE SE NECESITEN EN UN RANGO DE 1..10
-        ]
+        self.matrices_sonidos = self.config.sounds
 
         # Índice de la matriz actual
         self.matriz_actual = 0
@@ -62,7 +54,7 @@ class TablaSonidosApp(QWidget):
 
     def play_sound(self, nombre):
         # Obtener la ruta del sonido correspondiente
-        sonido_path = self.sounds_path + next(path for nombre_s, path in self.matrices_sonidos[self.matriz_actual] if nombre_s == nombre)
+        sonido_path = self.sounds_path + "/" + next(path for nombre_s, path in self.matrices_sonidos[self.matriz_actual] if nombre_s == nombre)
 
         # Cargar y reproducir el sonido con pygame
         try:

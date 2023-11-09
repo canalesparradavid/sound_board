@@ -11,6 +11,10 @@ pip install PyQt5
 pip install pygame
 ```
 
+### Configuración
+Este programa se puede configurar modificando el fichero `config.json` en el que se establece el directorio donde iran los sonidos con el nombre de `directory` y en forma de matriz el nombre de sonido y fichero de los sonidos con el nombre de `sounds`.
+Puede consultar [aquí](config.json) un ejemplo de configuración de este fichero. 
+
 ### Uso del programa
 Para abir el programa en Windows es tan simple como hacer doble click sobre el fichero `tabla.py` o ejecutar el siguiente comando en la terminal.
 
