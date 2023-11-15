@@ -9,5 +9,6 @@ class Config:
 
         # Almaceno la configuracion
         config_json = json.loads(config_json)
+        self.dimension = config_json['dimensions']
         self.sound_path = config_json['directory']
         self.sounds = config_json['sounds']
