@@ -1,0 +1,9 @@
+v0.7.1
+    Añadida dimension de matrices a fichero de configuración.
+
+v0.7
+    Añadido fichero de configuración con directorio de ficheros y listas de sonidos.
+
+v0.5
+    Creada tabla de sonidos.
+    Creados atajos de teclado CTRL+NUM y ALT+NUM.
