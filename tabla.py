@@ -45,7 +45,7 @@ class TablaSonidosApp(QWidget):
         # Agregar botones de sonido de la matriz actual en forma de matriz (3x3)
         for row in range(self.config.dimension[0]):
             for col in range(self.config.dimension[1]):
-                index = row * 3 + col
+                index = row * self.config.dimension[1] + col
                 if index < len(self.matrices_sonidos[self.matriz_actual]):
                     nombre, _ = self.matrices_sonidos[self.matriz_actual][index]
                     btn = QPushButton(nombre, self)
