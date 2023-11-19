@@ -99,7 +99,6 @@ class TablaSonidosApp(QWidget):
             #Reproducir sonido
             index = key - 65
             if 0 <= index < len(self.matrices_sonidos[self.matriz_actual]):
-                print(self.matrices_sonidos[self.matriz_actual][index])
                 nombre, sound_path, loop = self.matrices_sonidos[self.matriz_actual][index]
                 self.play_sound(sound_path, loop)
         # Cambiar de matriz de sonidos
