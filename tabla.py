@@ -5,6 +5,8 @@ import pygame
 
 from config import Config
 
+canChangematrix = False
+
 class TablaSonidosApp(QWidget):
     def __init__(self):
         super().__init__()
@@ -20,6 +22,9 @@ class TablaSonidosApp(QWidget):
 
         # Índice de la matriz actual
         self.matriz_actual = 0
+
+        # Array de sonidos reproduciendose
+        self.sound_objects = {}
 
         # Inicializar pygame para la reproducción de sonido
         pygame.init()
@@ -47,38 +52,66 @@ class TablaSonidosApp(QWidget):
             for col in range(self.config.dimension[1]):
                 index = row * self.config.dimension[1] + col
                 if index < len(self.matrices_sonidos[self.matriz_actual]):
-                    nombre, _ = self.matrices_sonidos[self.matriz_actual][index]
+                    nombre, sound_path, loop = self.matrices_sonidos[self.matriz_actual][index]
                     btn = QPushButton(nombre, self)
-                    btn.clicked.connect(lambda _, nombre=nombre: self.play_sound(nombre))
+                    btn.clicked.connect(lambda _, loop=loop, sound_path=sound_path: self.play_sound(sound_path, loop))
                     self.layout.addWidget(btn, row, col)
 
-    def play_sound(self, nombre):
-        # Obtener la ruta del sonido correspondiente
-        sonido_path = self.sounds_path + "/" + next(path for nombre_s, path in self.matrices_sonidos[self.matriz_actual] if nombre_s == nombre)
+    def play_sound(self, nombre, loop=False):
+        # Detener la reproducción del sonido si está en reproducción
+        if nombre in self.sound_objects:
+            self.sound_objects[nombre].stop()
+            del self.sound_objects[nombre]
+            return
 
-        # Cargar y reproducir el sonido con pygame
+        # Obtener la ruta del sonido correspondiente
+        sonido_path = self.sounds_path + "/" + nombre
+
+        # Cargar el sonido si aún no se ha cargado
+        if nombre not in self.sound_objects:
+            self.sound_objects[nombre] = pygame.mixer.Sound(sonido_path)
+
+        # Reproducir el sonido
         try:
-            pygame.mixer.music.load(sonido_path)
-            pygame.mixer.music.play()
+            self.sound_objects[nombre].play(loops=-1 if loop else 0)
         except Exception as e:
-            print(f"Error al cargar el archivo {sonido_path}.")
+            print(f"Error al cargar el archivo {sonido_path}. {e}")
+
+    def stop_sounds(self):
+        to_delete = []
+        for sound_name in self.sound_objects:
+            to_delete.append(sound_name)
+
+        for sound_name in to_delete:
+            self.sound_objects[sound_name].stop()
+            del self.sound_objects[sound_name]
 
     def keyPressEvent(self, event):
         modifiers = event.modifiers()
         key = event.key()
 
         # Reproducir el sonido con Ctrl+NUM
-        if modifiers == Qt.ControlModifier and Qt.Key_0 <= key <= Qt.Key_9:
-            index = key - Qt.Key_0 - 1
+        if modifiers == Qt.AltModifier:
+            # Habilitar cambio
+            global canChangematrix
+            canChangematrix = not canChangematrix
+        elif not canChangematrix and ord('a')-32 <= key <= ord('z')-32:
+            #Reproducir sonido
+            index = key - 65
             if 0 <= index < len(self.matrices_sonidos[self.matriz_actual]):
-                nombre, _ = self.matrices_sonidos[self.matriz_actual][index]
-                self.play_sound(nombre)
+                print(self.matrices_sonidos[self.matriz_actual][index])
+                nombre, sound_path, loop = self.matrices_sonidos[self.matriz_actual][index]
+                self.play_sound(sound_path, loop)
         # Cambiar de matriz de sonidos
-        elif modifiers == Qt.AltModifier and Qt.Key_0 <= key <= Qt.Key_9:
+        elif canChangematrix and Qt.Key_0 <= key <= Qt.Key_9:
+            # Cambiar y bloquear cambio
             index = key - Qt.Key_0 - 1
             if 0 <= index < len(self.matrices_sonidos):
                 self.matriz_actual = index
                 self.update_buttons()
+            canChangematrix = False
+        elif Qt.Key_Escape == key:
+            self.stop_sounds()
 
 
 if __name__ == '__main__':

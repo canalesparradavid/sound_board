@@ -1,3 +1,9 @@
+v1.0
+    Anadida reproducción de varios sonidos simultaneos.
+    Añadida reproducción en bucle programable.
+    Añadida posibilidad de parar sonidos de uno en uno.
+    Añadida posibilidad de parar todos los sonidos [tecla ESC].
+
 v0.7.1
     Añadida dimension de matrices a fichero de configuración.
 
