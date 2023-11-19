@@ -3,7 +3,7 @@
     "dimensions": [3,4],
     "sounds":[
         [
-            ["101", "darkforest_sp/bear1.ogg", false],
+            ["101", "darkforest_sp/bear1.ogg"],
             ["102", "darkforest_sp/ethereal3_lp.ogg", true],
             ["103", "darkforest_sp/music_forest_action1.ogg", true],
             ["104", "darkforest_sp/snake1.ogg", true],
@@ -11,38 +11,38 @@
             ["106", "darkforest_sp/campfire1_lp.ogg", true],
             ["107", "darkforest_sp/ethereal_dark1_lp.ogg", true],
             ["108", "darkforest_sp/music_forest_combat1.ogg", true],
-            ["109", "darkforest_sp/snarl1.ogg", false],
+            ["109", "darkforest_sp/snarl1.ogg"],
             ["110", "darkforest_sp/cicada1_lp.ogg", true],
             ["111", "darkforest_sp/rain1_lp.ogg", true],
             ["112", "darkforest_sp/thunder2.ogg", true]
         ],
         [
-            ["201", "01.mp3", false],
-            ["202", "02.mp3", false],
-            ["203", "03.mp3", false],
-            ["204", "04.mp3", false],
-            ["205", "05.mp3", false],
-            ["206", "06.mp3", false],
-            ["207", "07.mp3", false],
-            ["208", "08.mp3", false],
-            ["209", "09.mp3", false],
-            ["210", "09.mp3", false],
-            ["211", "09.mp3", false],
-            ["212", "09.mp3", false]
+            ["201", "01.mp3"],
+            ["202", "02.mp3"],
+            ["203", "03.mp3"],
+            ["204", "04.mp3"],
+            ["205", "05.mp3"],
+            ["206", "06.mp3"],
+            ["207", "07.mp3"],
+            ["208", "08.mp3"],
+            ["209", "09.mp3"],
+            ["210", "09.mp3"],
+            ["211", "09.mp3"],
+            ["212", "09.mp3"]
         ],
         [
-            ["301", "01.mp3", false],
-            ["302", "02.mp3", false],
-            ["303", "03.mp3", false],
-            ["304", "04.mp3", false],
-            ["305", "05.mp3", false],
-            ["306", "06.mp3", false],
-            ["307", "07.mp3", false],
-            ["308", "08.mp3", false],
-            ["309", "09.mp3", false],
-            ["310", "09.mp3", false],
-            ["311", "09.mp3", false],
-            ["312", "09.mp3", false]
+            ["301", "01.mp3"],
+            ["302", "02.mp3"],
+            ["303", "03.mp3"],
+            ["304", "04.mp3"],
+            ["305", "05.mp3"],
+            ["306", "06.mp3"],
+            ["307", "07.mp3"],
+            ["308", "08.mp3"],
+            ["309", "09.mp3"],
+            ["310", "09.mp3"],
+            ["311", "09.mp3"],
+            ["312", "09.mp3"]
         ]
     ]
 }
