@@ -2,7 +2,7 @@ import json
 from sound import Sound
 
 class Config:
-    def __init__(self, config_file):
+    def __init__(self, config_file, pygame):
         # Leo la configuracion del fichero
         f = open(config_file, "r")
         config_json = f.read()
@@ -12,9 +12,9 @@ class Config:
         config_json = json.loads(config_json)
         self.dimension = config_json['dimensions']
         self.sound_path = config_json['directory']
-        self.sounds = self.create_sounds(config_json['sounds'])
+        self.sounds = self.create_sounds(pygame, config_json['sounds'])
 
-    def create_sounds(self, sound_matrix):
+    def create_sounds(self, pygame, sound_matrix):
         all_sounds = []
 
         # Recorro las matrices
@@ -23,7 +23,7 @@ class Config:
             # Recorro sonidos de la matriz actual
             for j in range(len(sound_matrix[i])):
                 s = sound_matrix[i][j]
-                matrix_sounds.append(Sound(s[0], self.sound_path + "/" + s[1], s[2] if len(s) == 3 else False))
+                matrix_sounds.append(Sound(pygame, s[0], self.sound_path + "/" + s[1], s[2] if len(s) == 3 else False))
             all_sounds.append(matrix_sounds)
 
         return all_sounds

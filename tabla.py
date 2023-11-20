@@ -1,25 +1,22 @@
 import sys
+import os
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QGridLayout
 from PyQt5.QtCore import Qt
 import pygame
 
 from config import Config
-
-canChangematrix = False
+from board import Board
 
 class TablaSonidosApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        # Cargo la configuracion
-        self.config = Config("config.json")
-
-        self.sounds_path = self.config.sound_path       # Directorio de sonidos
-        self.matrices_sonidos = self.config.sounds      # Lista de matrices de sonidos
-        self.matriz_actual = 0                          # Índice de la matriz actual
-
         # Inicializar pygame para la reproducción de sonido
         pygame.init()
+
+        # Cargo la configuracion
+        self.config = Config("config.json", pygame)
+        self.board = Board(self.config)
 
         self.initUI()
 
@@ -43,10 +40,10 @@ class TablaSonidosApp(QWidget):
         for row in range(self.config.dimension[0]):
             for col in range(self.config.dimension[1]):
                 index = row * self.config.dimension[1] + col
-                if index < len(self.matrices_sonidos[self.matriz_actual]):
-                    sound = self.matrices_sonidos[self.matriz_actual][index]
+                if index < len(self.config.sounds[self.board.actual_matrix]):
+                    sound = self.config.sounds[self.board.actual_matrix][index]
                     btn = QPushButton(sound.name, self)
-                    btn.clicked.connect(lambda _, sound=sound, pygame=pygame: sound.switch_sound(pygame))
+                    btn.clicked.connect(lambda _, sound=sound: sound.switch_sound())
                     self.layout.addWidget(btn, row, col)
 
     def keyPressEvent(self, event):
@@ -55,28 +52,21 @@ class TablaSonidosApp(QWidget):
 
         # Reproducir el sonido con Ctrl+NUM
         if modifiers == Qt.AltModifier:
-            # Habilitar cambio
-            global canChangematrix
-            canChangematrix = not canChangematrix
-        elif not canChangematrix and ord('a')-32 <= key <= ord('z')-32:
+            self.board.switch_change_option()
+            print("changed")
+        elif not self.board.can_change_matrix and ord('a')-32 <= key <= ord('z')-32:
             #Reproducir sonido
             index = key - 65
-            if 0 <= index < len(self.matrices_sonidos[self.matriz_actual]):
-                sound = self.matrices_sonidos[self.matriz_actual][index]
-                sound.switch_sound(pygame)
+            self.board.play_sound(index)
         # Cambiar de matriz de sonidos
-        elif canChangematrix and Qt.Key_0 <= key <= Qt.Key_9:
+        elif self.board.can_change_matrix and Qt.Key_0 <= key <= Qt.Key_9:
             # Cambiar y bloquear cambio
             index = key - Qt.Key_0 - 1
-            if 0 <= index < len(self.matrices_sonidos):
-                self.matriz_actual = index
-                self.update_buttons()
-            canChangematrix = False
+            self.board.change_to_matrix(index)
+            self.update_buttons()
         # Parar todos los sonidos
         elif Qt.Key_Escape == key:
-            for matrix in self.matrices_sonidos:
-                for sound in matrix:
-                    sound.stop()
+            self.board.stop_all()
 
 
 if __name__ == '__main__':
