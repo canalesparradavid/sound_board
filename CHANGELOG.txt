@@ -1,6 +1,6 @@
 v1.1
-    Añadida version sin GUI para Linux
-    Añadido lanzamiento con parametros
+    Añadida version sin GUI para Linux.
+    Añadido lanzamiento con parametros.
 
 v1.0
     Anadida reproducción de varios sonidos simultaneos.
