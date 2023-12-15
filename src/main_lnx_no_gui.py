@@ -40,13 +40,14 @@ def run(stdscr):
 def start_board():
     global config
     global board
-    
+
     # Inicializar pygame
     pygame.init()
 
     # Inicializo el programa
     config = Config("config.json", pygame)
     board = Board(config)
+    config.boot_sound.play()
 
     # Arranco el programa
     curses.wrapper(run)

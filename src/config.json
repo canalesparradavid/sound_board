@@ -1,6 +1,7 @@
 {
-    "directory": "sounds",
+    "directory": "../sounds",
     "dimensions": [3,4],
+    "boot_sound": "boot.mp3",
     "sounds":[
         [
             ["101", "darkforest_sp/bear1.ogg"],

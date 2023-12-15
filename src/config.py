@@ -15,6 +15,7 @@ class Config:
         self.dimension = config_json['dimensions']
         self.sound_path = config_json['directory']
         self.sounds = self.create_sounds(pygame, config_json['sounds'])
+        self.boot_sound = Sound(pygame, '', self.directorio_script + "/" + self.sound_path + "/" + config_json['boot_sound'])
 
     def create_sounds(self, pygame, sound_matrix):
         all_sounds = []

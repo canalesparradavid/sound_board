@@ -1,3 +1,7 @@
+v1.5
+    Añadido sonido de arranque.
+    Sonido de arranque configurable en fichero config.json.
+
 v1.1
     Añadida version sin GUI para Linux.
     Añadido lanzamiento con parametros.

@@ -18,6 +18,9 @@ class TablaSonidosApp(QWidget):
         self.config = Config("config.json", pygame)
         self.board = Board(self.config)
 
+        # Reproduzco sonido de arrancado
+        self.config.boot_sound.play()
+
         self.initUI()
 
     def initUI(self):
