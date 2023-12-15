@@ -1,0 +1,36 @@
+!HOME,Tab,Email,Calculator
+keycode 180 = x
+keycode 23 = y
+keycode 163 = z
+keycode 148 = a
+
+!NumLock,Slash,Asterisk,Return
+keycode 77 = c
+keycode 106 = d
+keycode 63 = e
+keycode 22 = f
+
+!7,8,9,-
+keycode 79 = g
+keycode 80 = h
+keycode 81 = i
+keycode 82 = j
+
+!4,5,6,+
+keycode 83 = k
+keycode 84 = l
+keycode 85 = m
+keycode 86 = n
+
+!1,2,3
+keycode 87 = o
+keycode 88 = p
+keycode 89 = q
+
+!0,Space,.
+!keycode 90 = r
+!keycode 65 = s
+!keycode 91 = t
+
+!Enter
+keycode 104 = b
