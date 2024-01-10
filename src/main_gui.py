@@ -1,7 +1,6 @@
 import sys
-import os
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QGridLayout
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QObject
 import pygame
 
 from config import Config
@@ -17,6 +16,7 @@ class TablaSonidosApp(QWidget):
         # Cargo la configuracion
         self.config = Config("config.json", pygame)
         self.board = Board(self.config)
+        self.actual_matrix = 1
 
         # Reproduzco sonido de arrancado
         self.config.boot_sound.play()
@@ -39,6 +39,17 @@ class TablaSonidosApp(QWidget):
         for i in reversed(range(self.layout.count())):
             self.layout.itemAt(i).widget().setParent(None)
 
+        # Agregar botones de menu
+        back_button = QPushButton('<---', self)
+        back_button.clicked.connect(self.back_matrixes)
+        self.layout.addWidget(back_button, 0, 0)
+        reset_button = QPushButton('Reset', self)
+        reset_button.clicked.connect(self.reset)
+        self.layout.addWidget(reset_button, 0, 1)
+        advance_button = QPushButton('--->', self)
+        advance_button.clicked.connect(self.advance_matrixes)
+        self.layout.addWidget(advance_button, 0, 2)
+
         # Agregar botones de sonido de la matriz actual en forma de matriz (3x3)
         for row in range(self.config.dimension[0]):
             for col in range(self.config.dimension[1]):
@@ -47,7 +58,7 @@ class TablaSonidosApp(QWidget):
                     sound = self.config.sounds[self.board.actual_matrix][index]
                     btn = QPushButton(sound.name, self)
                     btn.clicked.connect(lambda _, sound=sound: sound.switch_sound())
-                    self.layout.addWidget(btn, row, col)
+                    self.layout.addWidget(btn, row + 1, col)
 
     def keyPressEvent(self, event):
         modifiers = event.modifiers()
@@ -71,12 +82,26 @@ class TablaSonidosApp(QWidget):
         elif Qt.Key_Escape == key:
             self.board.stop_all()
 
+    def reset(self):
+        self.board.stop_all()
+        print("reset")
 
-'''if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = TablaSonidosApp()
-    ex.show()
-    sys.exit(app.exec_())'''
+    def advance_matrixes(self):
+        max_matrix_index = len(self.config.sounds)
+        if (self.actual_matrix == max_matrix_index):
+            return
+        self.actual_matrix = self.actual_matrix + 1
+        self.board.switch_change_option()
+        self.board.change_to_matrix(self.actual_matrix - 1)
+        self.update_buttons()
+
+    def back_matrixes(self):
+        if (self.actual_matrix == 1):
+            return
+        self.actual_matrix = self.actual_matrix - 1
+        self.board.switch_change_option()
+        self.board.change_to_matrix(self.actual_matrix - 1)
+        self.update_buttons()
 
 def start_board():
     app = QApplication(sys.argv)
